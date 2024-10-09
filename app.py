@@ -1,5 +1,4 @@
 import os
-from tkinter import *
 from tkinter import filedialog
 import tkinter as tk
 from pinyin_jyutping_sentence import pinyin
@@ -42,29 +41,38 @@ def browse_button():
     current_file_name = folder_path.set(os.path.basename(current_file_path))
     print(current_file_path)
 
-window = Tk()
+window = tk.Tk()
 
-folder_path = StringVar()
-lbl1 = Label(master=window, textvariable=folder_path)
-lbl1.pack()
-button2 = Button(text="Browse", command=browse_button)
-button2.pack()
+folder_path = tk.StringVar()
+
+greeting = tk.Label(text="This is my app", fg=default_text_color, bg="blue")
+# lbl1 = tk.Label(master=window, text="asdf;lkjjjjjjjjjjjjjasdf", textvariable=folder_path, bg="red")
+lbl1 = tk.Label(master=window, text="nahnahnahnahnahnahnahnahnahnahnahnah", bg="red")
+button2 = tk.Button(text="Browse", command=browse_button, bg="green")
+
+# handles the user input
+entry = tk.Entry(bg="pink")
+entry.focus_set()
+entry.bind('<Return>', printResult)
+
+greeting.grid(row=0, column=0, padx=2, pady=2)
+lbl1.grid(row=0, column=1, padx=2, pady=2)
+button2.grid(row=1, column=1, padx=2, pady=2)
+entry.grid(row=1, column=0, padx=2, pady=2)
 
 # sets the background color of the window
 window.configure(bg=default_bg_color)
 
 # sets the width and height of the window
 window.geometry("1080x720")
+window.title("Quickly Translate Sentences In Chinese To Pinyin")
+window.grid_columnconfigure(0, weight=1)
+window.grid_columnconfigure(1, weight=1)
+window.grid_rowconfigure(0, weight=1)
+window.grid_rowconfigure(1, weight=1)
 
-greeting = Label(text="This is my app", fg=default_text_color, bg=default_bg_color)
-greeting.pack()
 
 
-# handles the user input
-entry = Entry()
-entry.focus_set()
-entry.pack()
-entry.bind('<Return>', printResult)
 
 
 window.mainloop()
