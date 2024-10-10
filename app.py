@@ -11,7 +11,7 @@ global current_file_path
 
 # appends the user input to the current file when the Enter key is pressed
 def printResult(self):
-    userInput = entry.get()
+    userInput = sentence_entry.get()
     if len(userInput) < 1:
         return
     print(f'Appending [{userInput}] to [{os.path.basename(current_file_path)}]')
@@ -29,6 +29,10 @@ def addChinesePinyinSentenceToNotes(input):
     table_entry_english = "this is the english translation"
     table_entry = f'\n{table_entry_chinese} <br> {table_entry_pinyin} | {table_entry_english}'
 
+    original_sentence.set(input)
+    pinyin_sentence.set(sentence_pinyin)
+    sentence_entry.delete(0, 'end')
+
     # opens the obsidian note to edit
     with open(current_file_path, 'a', encoding="utf-8") as f:
         f.write(table_entry)
@@ -41,39 +45,45 @@ def browse_button():
     current_file_name = folder_path.set(os.path.basename(current_file_path))
     print(current_file_path)
 
-window = tk.Tk()
+root = tk.Tk()
 
 folder_path = tk.StringVar()
+original_sentence = tk.StringVar()
+pinyin_sentence = tk.StringVar()
 
-greeting = tk.Label(text="This is my app", fg=default_text_color, bg="blue")
-# lbl1 = tk.Label(master=window, text="asdf;lkjjjjjjjjjjjjjasdf", textvariable=folder_path, bg="red")
-lbl1 = tk.Label(master=window, text="nahnahnahnahnahnahnahnahnahnahnahnah", bg="red")
-button2 = tk.Button(text="Browse", command=browse_button, bg="green")
+root_width = 600
+root_height = 400
+root_min_width = 600
+root_min_height = 400
+
+root.configure(bg="gray")
+root.geometry(str(root_width) + 'x' + str(root_height))
+root.minsize(root_min_width, root_min_height)
+root.title("Quickly Translate Sentences In Chinese To Pinyin")
+
+current_file_label = tk.Label(master=root, textvariable=folder_path, bg="purple", width=30)
+browse_button = tk.Button(text="Browse", command=browse_button, bg="green")
+recently_opened_files = tk.Label(master=root, text="recent files", bg="teal", height=10)
+original_sentence_label = tk.Label(master=root, textvariable=original_sentence, bg="red", width=50)
+pinyin_sentence_label = tk.Label(master=root, textvariable=pinyin_sentence, bg="pink", width=50)
 
 # handles the user input
-entry = tk.Entry(bg="pink")
-entry.focus_set()
-entry.bind('<Return>', printResult)
+sentence_entry = tk.Entry(bg="light blue")
+sentence_entry.focus_set()
+sentence_entry.bind('<Return>', printResult)
 
-greeting.grid(row=0, column=0, padx=2, pady=2)
-lbl1.grid(row=0, column=1, padx=2, pady=2)
-button2.grid(row=1, column=1, padx=2, pady=2)
-entry.grid(row=1, column=0, padx=2, pady=2)
-
-# sets the background color of the window
-window.configure(bg=default_bg_color)
-
-# sets the width and height of the window
-window.geometry("1080x720")
-window.title("Quickly Translate Sentences In Chinese To Pinyin")
-window.grid_columnconfigure(0, weight=1)
-window.grid_columnconfigure(1, weight=1)
-window.grid_rowconfigure(0, weight=1)
-window.grid_rowconfigure(1, weight=1)
+root.grid_columnconfigure(1,weight=1)
+root.grid_columnconfigure(5,weight=1)
+root.grid_rowconfigure(1, weight=1)
+root.grid_rowconfigure(7, weight=1)
 
 
+recently_opened_files.grid(row=2, column=2, padx=10, pady=10, sticky="news", rowspan=2)
+current_file_label.grid(row=2, column=3, padx=10, pady=10, sticky="news")
+browse_button.grid(row=2, column=4, padx=10, pady=10, sticky="ews")
+sentence_entry.grid(row=3, column=3, padx=10, pady=(50, 10), sticky="news", columnspan=2)
+original_sentence_label.grid(row=5, column=2, padx=10, pady=(10, 0), sticky="news", columnspan=3)
+pinyin_sentence_label.grid(row=6, column=2, padx=10, pady=(0, 10), sticky="news", columnspan=3)
 
-
-
-window.mainloop()
+root.mainloop()
 
