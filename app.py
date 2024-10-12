@@ -65,11 +65,17 @@ root.geometry(str(root_width) + 'x' + str(root_height))
 root.minsize(root_min_width, root_min_height)
 root.title("Quickly Translate Sentences In Chinese To Pinyin")
 
-current_file_label = tk.Label(master=root, textvariable=folder_path, bg="purple", font=("Times New Roman", 15), anchor="center", width=15)
+current_file_label = tk.Label(master=root, textvariable=folder_path, bg="purple", font=("Times New Roman", 15), anchor="center", width=15, height=2)
 browse_button = tk.Button(text="Browse", command=browse_button, bg="green")
-recently_opened_files = tk.Label(master=root, text="recent files", bg="teal", font=("Times New Roman", 15), anchor="center", width=5, height=8)
+# recently_opened_files = tk.Label(master=root, text="recent files", bg="teal", font=("Times New Roman", 15), anchor="center", width=5, height=8)
+recently_opened_label = tk.Label(master=root, text="Recently Opened", font=("Times New Roman", 15), bg="teal", width=15)
 original_sentence_label = tk.Label(master=root, textvariable=original_sentence, bg="red", font=("Times New Roman", 15), anchor="center", width=40, height=2)
 pinyin_sentence_label = tk.Label(master=root, textvariable=pinyin_sentence, bg="pink", font=("Times New Roman", 15), anchor="center", width=40, height=2)
+
+items = dir(tk)
+var = tk.StringVar()
+var.set(items)
+recently_opened_files = tk.Listbox(root, listvariable=var, bg="white", font=("Times New Roman", 15), width=5, height=5, borderwidth=0, highlightthickness=0, selectforeground='white', activestyle='none')
 
 # handles the user input
 sentence_entry = tk.Entry(bg="light blue", font=("Times New Roman", 15))
@@ -82,7 +88,8 @@ root.grid_rowconfigure(1, weight=1)
 root.grid_rowconfigure(7, weight=1)
 
 
-recently_opened_files.grid(row=2, column=2, padx=10, pady=10, sticky="news", rowspan=2)
+recently_opened_label.grid(row=2, column=2, padx=10, pady=(10, 0), sticky="news")
+recently_opened_files.grid(row=3, column=2, padx=10, pady=(0, 10), sticky="news", rowspan=1)
 current_file_label.grid(row=2, column=3, padx=10, pady=10, sticky="news")
 browse_button.grid(row=2, column=4, padx=10, pady=10, sticky="ews")
 sentence_entry.grid(row=3, column=3, padx=10, pady=(50, 10), sticky="news", columnspan=2)
