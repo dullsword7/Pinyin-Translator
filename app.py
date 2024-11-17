@@ -1,11 +1,23 @@
 import os
-from tkinter import filedialog
+from tkinter import filedialog, ttk
 import tkinter as tk
 from pinyin_jyutping_sentence import pinyin
 
-default_bg_color = '#40434e'
-default_text_color = 'white'
-default_font_size = 20
+# Modern color scheme
+COLORS = {
+    'bg': '#2E3440',  # Dark background
+    'secondary': '#3B4252',  # Slightly lighter background
+    'accent': '#88C0D0',  # Blue accent
+    'text': '#ECEFF4',  # Light text
+    'input_bg': '#4C566A'  # Input background
+}
+
+# Updated font configurations
+FONTS = {
+    'main': ('Helvetica', 13),
+    'header': ('Helvetica', 15, 'bold'),
+    'input': ('Helvetica', 16)
+}
 
 # the obsidian file to open and edit
 global current_file_path
@@ -49,52 +61,153 @@ def browse_button():
     current_file_name = folder_path.set(os.path.basename(current_file_path))
     print(current_file_path)
 
+def create_styled_button(parent, text, command):
+    return tk.Button(
+        parent,
+        text=text,
+        command=command,
+        bg=COLORS['accent'],
+        fg=COLORS['bg'],
+        font=FONTS['main'],
+        relief='flat',
+        padx=15,
+        cursor='hand2'
+    )
+
 root = tk.Tk()
+root.configure(bg=COLORS['bg'])
+root.geometry('800x600')
+root.minsize(800, 600)
+root.title("Chinese to Pinyin Translator")
 
 folder_path = tk.StringVar()
 original_sentence = tk.StringVar()
 pinyin_sentence = tk.StringVar()
 
-root_width = 600
-root_height = 400
-root_min_width = 600
-root_min_height = 400
+# Style configuration
+style = ttk.Style()
+style.configure('Custom.TFrame', background=COLORS['bg'])
 
-root.configure(bg="gray")
-root.geometry(str(root_width) + 'x' + str(root_height))
-root.minsize(root_min_width, root_min_height)
-root.title("Quickly Translate Sentences In Chinese To Pinyin")
+# Main container
+main_frame = ttk.Frame(root, style='Custom.TFrame', padding="20")
+main_frame.grid(row=0, column=0, sticky="nsew")
 
-current_file_label = tk.Label(master=root, textvariable=folder_path, bg="purple", font=("Times New Roman", 15), anchor="center", width=15, height=2)
-browse_button = tk.Button(text="Browse", command=browse_button, bg="green")
-# recently_opened_files = tk.Label(master=root, text="recent files", bg="teal", font=("Times New Roman", 15), anchor="center", width=5, height=8)
-recently_opened_label = tk.Label(master=root, text="Recently Opened", font=("Times New Roman", 15), bg="teal", width=15)
-original_sentence_label = tk.Label(master=root, textvariable=original_sentence, bg="red", font=("Times New Roman", 15), anchor="center", width=40, height=2)
-pinyin_sentence_label = tk.Label(master=root, textvariable=pinyin_sentence, bg="pink", font=("Times New Roman", 15), anchor="center", width=40, height=2)
+# File selection area
+file_frame = ttk.Frame(main_frame, style='Custom.TFrame')
+file_frame.grid(row=0, column=0, columnspan=3, sticky="ew", pady=(0, 20))
 
-items = dir(tk)
-var = tk.StringVar()
-var.set(items)
-recently_opened_files = tk.Listbox(root, listvariable=var, bg="white", font=("Times New Roman", 15), width=5, height=5, borderwidth=0, highlightthickness=0, selectforeground='white', activestyle='none')
+current_file_label = tk.Label(
+    file_frame,
+    textvariable=folder_path,
+    bg=COLORS['secondary'],
+    fg=COLORS['text'],
+    font=FONTS['main'],
+    padx=10,
+    pady=8
+)
+browse_btn = create_styled_button(file_frame, "Choose File", browse_button)
 
-# handles the user input
-sentence_entry = tk.Entry(bg="light blue", font=("Times New Roman", 15))
-sentence_entry.focus_set()
+# Input area
+input_frame = ttk.Frame(main_frame, style='Custom.TFrame')
+input_frame.grid(row=1, column=0, columnspan=3, sticky="ew", pady=20)
+
+sentence_entry = tk.Entry(
+    input_frame,
+    font=FONTS['input'],
+    bg=COLORS['input_bg'],
+    fg=COLORS['text'],
+    insertbackground=COLORS['text'],
+    relief='flat',
+    bd=10
+)
+# Result display area
+result_frame = ttk.Frame(main_frame, style='Custom.TFrame')
+result_frame.grid(row=2, column=0, columnspan=3, sticky="ew", pady=20)
+
+# Chinese sentence label and text
+chinese_label = tk.Label(
+    result_frame,
+    text="Chinese",
+    bg=COLORS['bg'],
+    fg=COLORS['accent'],
+    font=FONTS['header'],
+    anchor='w'
+)
+chinese_label.pack(fill='x', pady=(0, 5))
+
+original_sentence_label = tk.Label(
+    result_frame,
+    textvariable=original_sentence,
+    bg=COLORS['secondary'],
+    fg=COLORS['text'],
+    font=FONTS['main'],
+    pady=15,
+    wraplength=700
+)
+original_sentence_label.pack(fill='x', pady=(0, 20))
+
+# Pinyin sentence label and text
+pinyin_label = tk.Label(
+    result_frame,
+    text="Pinyin",
+    bg=COLORS['bg'],
+    fg=COLORS['accent'],
+    font=FONTS['header'],
+    anchor='w'
+)
+pinyin_label.pack(fill='x', pady=(0, 5))
+
+pinyin_sentence_label = tk.Label(
+    result_frame,
+    textvariable=pinyin_sentence,
+    bg=COLORS['secondary'],
+    fg=COLORS['accent'],
+    font=FONTS['main'],
+    pady=15,
+    wraplength=700
+)
+pinyin_sentence_label.pack(fill='x')
+# Recent files area
+recent_frame = ttk.Frame(main_frame, style='Custom.TFrame')
+recent_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=20)
+
+recently_opened_label = tk.Label(
+    recent_frame,
+    text="Recently Opened Files",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+
+recently_opened_files = tk.Listbox(
+    recent_frame,
+    bg=COLORS['secondary'],
+    fg=COLORS['text'],
+    font=FONTS['main'],
+    height=4,
+    selectmode='single',
+    activestyle='none',
+    relief='flat',
+    selectbackground=COLORS['accent']
+)
+
+# Grid configurations
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+main_frame.grid_columnconfigure(1, weight=1)
+
+# Widget placements
+current_file_label.pack(side='left', fill='x', expand=True, padx=(0, 10))
+browse_btn.pack(side='right')
+
+sentence_entry.pack(fill='x', expand=True)
 sentence_entry.bind('<Return>', printResult)
+sentence_entry.focus_set()
 
-root.grid_columnconfigure(1,weight=1)
-root.grid_columnconfigure(5, weight=1)
-root.grid_rowconfigure(1, weight=1)
-root.grid_rowconfigure(7, weight=1)
+original_sentence_label.pack(fill='x', pady=(0, 5))
+pinyin_sentence_label.pack(fill='x')
 
+recently_opened_label.pack(anchor='w', pady=(0, 10))
+recently_opened_files.pack(fill='x')
 
-recently_opened_label.grid(row=2, column=2, padx=10, pady=(10, 0), sticky="news")
-recently_opened_files.grid(row=3, column=2, padx=10, pady=(0, 10), sticky="news", rowspan=1)
-current_file_label.grid(row=2, column=3, padx=10, pady=10, sticky="news")
-browse_button.grid(row=2, column=4, padx=10, pady=10, sticky="ews")
-sentence_entry.grid(row=3, column=3, padx=10, pady=(50, 10), sticky="news", columnspan=2)
-original_sentence_label.grid(row=5, column=2, padx=10, pady=(20, 0), sticky="news", columnspan=3)
-pinyin_sentence_label.grid(row=6, column=2, padx=10, pady=(0, 10), sticky="news", columnspan=3)
-
-root.mainloop()
-
+main_frame.mainloop()
