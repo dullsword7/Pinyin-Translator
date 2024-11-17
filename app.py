@@ -76,8 +76,22 @@ def create_styled_button(parent, text, command):
 
 root = tk.Tk()
 root.configure(bg=COLORS['bg'])
-root.geometry('800x600')
-root.minsize(800, 600)
+# Get screen dimensions
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+# Set window size
+root_width = 800
+root_height = 600
+root.geometry(f'{root_width}x{root_height}')
+root.minsize(root_width, root_height)
+
+# Calculate center position
+x = (screen_width - root_width) // 2
+y = (screen_height - root_height) // 2
+
+# Set window position to center of screen
+root.geometry(f'+{x}+{y}')
 root.title("Chinese to Pinyin Translator")
 
 folder_path = tk.StringVar()
@@ -111,6 +125,16 @@ browse_btn = create_styled_button(file_frame, "Choose File", browse_button)
 input_frame = ttk.Frame(main_frame, style='Custom.TFrame')
 input_frame.grid(row=1, column=0, columnspan=3, sticky="ew", pady=20)
 
+input_label = tk.Label(
+    input_frame,
+    text="Enter Chinese Text",
+    bg=COLORS['bg'],
+    fg=COLORS['accent'],
+    font=FONTS['header'],
+    anchor='w'
+)
+input_label.pack(fill='x', pady=(0, 5))
+
 sentence_entry = tk.Entry(
     input_frame,
     font=FONTS['input'],
@@ -126,45 +150,45 @@ result_frame.grid(row=2, column=0, columnspan=3, sticky="ew", pady=20)
 
 # Chinese sentence label and text
 chinese_label = tk.Label(
-    result_frame,
-    text="Chinese",
-    bg=COLORS['bg'],
-    fg=COLORS['accent'],
-    font=FONTS['header'],
-    anchor='w'
+result_frame,
+text="Chinese",
+bg=COLORS['bg'],
+fg=COLORS['accent'],
+font=FONTS['header'],
+anchor='w'
 )
 chinese_label.pack(fill='x', pady=(0, 5))
 
 original_sentence_label = tk.Label(
-    result_frame,
-    textvariable=original_sentence,
-    bg=COLORS['secondary'],
-    fg=COLORS['text'],
-    font=FONTS['main'],
-    pady=15,
-    wraplength=700
+result_frame,
+textvariable=original_sentence,
+bg=COLORS['secondary'],
+fg=COLORS['text'],
+font=FONTS['main'],
+pady=15,
+wraplength=700
 )
 original_sentence_label.pack(fill='x', pady=(0, 20))
 
 # Pinyin sentence label and text
 pinyin_label = tk.Label(
-    result_frame,
-    text="Pinyin",
-    bg=COLORS['bg'],
-    fg=COLORS['accent'],
-    font=FONTS['header'],
-    anchor='w'
+result_frame,
+text="Pinyin",
+bg=COLORS['bg'],
+fg=COLORS['accent'],
+font=FONTS['header'],
+anchor='w'
 )
 pinyin_label.pack(fill='x', pady=(0, 5))
 
 pinyin_sentence_label = tk.Label(
-    result_frame,
-    textvariable=pinyin_sentence,
-    bg=COLORS['secondary'],
-    fg=COLORS['accent'],
-    font=FONTS['main'],
-    pady=15,
-    wraplength=700
+result_frame,
+textvariable=pinyin_sentence,
+bg=COLORS['secondary'],
+fg=COLORS['accent'],
+font=FONTS['main'],
+pady=15,
+wraplength=700
 )
 pinyin_sentence_label.pack(fill='x')
 # Recent files area
@@ -172,23 +196,23 @@ recent_frame = ttk.Frame(main_frame, style='Custom.TFrame')
 recent_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=20)
 
 recently_opened_label = tk.Label(
-    recent_frame,
-    text="Recently Opened Files",
-    bg=COLORS['bg'],
-    fg=COLORS['text'],
-    font=FONTS['header']
+recent_frame,
+text="Recently Opened Files",
+bg=COLORS['bg'],
+fg=COLORS['text'],
+font=FONTS['header']
 )
 
 recently_opened_files = tk.Listbox(
-    recent_frame,
-    bg=COLORS['secondary'],
-    fg=COLORS['text'],
-    font=FONTS['main'],
-    height=4,
-    selectmode='single',
-    activestyle='none',
-    relief='flat',
-    selectbackground=COLORS['accent']
+recent_frame,
+bg=COLORS['secondary'],
+fg=COLORS['text'],
+font=FONTS['main'],
+height=4,
+selectmode='single',
+activestyle='none',
+relief='flat',
+selectbackground=COLORS['accent']
 )
 
 # Grid configurations
