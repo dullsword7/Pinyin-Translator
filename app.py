@@ -150,45 +150,45 @@ result_frame.grid(row=2, column=0, columnspan=3, sticky="ew", pady=20)
 
 # Chinese sentence label and text
 chinese_label = tk.Label(
-result_frame,
-text="Chinese",
-bg=COLORS['bg'],
-fg=COLORS['accent'],
-font=FONTS['header'],
-anchor='w'
+    result_frame,
+    text="Chinese",
+    bg=COLORS['bg'],
+    fg=COLORS['accent'],
+    font=FONTS['header'],
+    anchor='w'
 )
 chinese_label.pack(fill='x', pady=(0, 5))
 
 original_sentence_label = tk.Label(
-result_frame,
-textvariable=original_sentence,
-bg=COLORS['secondary'],
-fg=COLORS['text'],
-font=FONTS['main'],
-pady=15,
-wraplength=700
-)
+    result_frame,
+    textvariable=original_sentence,
+    bg=COLORS['secondary'],
+    fg=COLORS['text'],
+    font=FONTS['main'],
+    pady=15,
+    wraplength=700
+    )
 original_sentence_label.pack(fill='x', pady=(0, 20))
 
 # Pinyin sentence label and text
 pinyin_label = tk.Label(
-result_frame,
-text="Pinyin",
-bg=COLORS['bg'],
-fg=COLORS['accent'],
-font=FONTS['header'],
-anchor='w'
+    result_frame,
+    text="Pinyin",
+    bg=COLORS['bg'],
+    fg=COLORS['accent'],
+    font=FONTS['header'],
+    anchor='w'
 )
 pinyin_label.pack(fill='x', pady=(0, 5))
 
 pinyin_sentence_label = tk.Label(
-result_frame,
-textvariable=pinyin_sentence,
-bg=COLORS['secondary'],
-fg=COLORS['accent'],
-font=FONTS['main'],
-pady=15,
-wraplength=700
+    result_frame,
+    textvariable=pinyin_sentence,
+    bg=COLORS['secondary'],
+    fg=COLORS['accent'],
+    font=FONTS['main'],
+    pady=15,
+    wraplength=700
 )
 pinyin_sentence_label.pack(fill='x')
 # Recent files area
@@ -196,23 +196,23 @@ recent_frame = ttk.Frame(main_frame, style='Custom.TFrame')
 recent_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=20)
 
 recently_opened_label = tk.Label(
-recent_frame,
-text="Recently Opened Files",
-bg=COLORS['bg'],
-fg=COLORS['text'],
-font=FONTS['header']
+    recent_frame,
+    text="Recently Opened Files",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
 )
 
 recently_opened_files = tk.Listbox(
-recent_frame,
-bg=COLORS['secondary'],
-fg=COLORS['text'],
-font=FONTS['main'],
-height=4,
-selectmode='single',
-activestyle='none',
-relief='flat',
-selectbackground=COLORS['accent']
+    recent_frame,
+    bg=COLORS['secondary'],
+    fg=COLORS['text'],
+    font=FONTS['main'],
+    height=4,
+    selectmode='single',
+    activestyle='none',
+    relief='flat',
+    selectbackground=COLORS['accent']
 )
 
 # Grid configurations
