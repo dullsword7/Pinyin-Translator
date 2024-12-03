@@ -69,6 +69,21 @@ column1 = ttk.Frame(inner_frame, style='Border.TFrame')
 column2 = ttk.Frame(inner_frame, style='Border.TFrame')
 column3 = ttk.Frame(inner_frame, style='Border.TFrame')
 
+# Add labels to each column
+label1 = ttk.Label(column1, text="Column 1", anchor="center")
+label2 = ttk.Label(column2, text="Column 2", anchor="center")
+label3 = ttk.Label(column3, text="Column 3", anchor="center")
+
+# Position the labels at the top of each column, centered
+label1.grid(row=0, column=0, pady=10)
+label2.grid(row=0, column=0, pady=10)
+label3.grid(row=0, column=0, pady=10)
+
+# Configure column weights for the labels
+column1.grid_columnconfigure(0, weight=1)
+column2.grid_columnconfigure(0, weight=1)
+column3.grid_columnconfigure(0, weight=1)
+
 # Position the columns
 column1.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
 column2.grid(row=0, column=1, sticky='nsew', padx=5, pady=5)
