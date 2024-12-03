@@ -56,19 +56,35 @@ style.configure(
 )
 
 # Main outer frame
-frame = ttk.Frame(root, style='Border.TFrame')
-frame.grid(row=0, column=0, sticky='nsew')
+outer_frame = ttk.Frame(root, style='Border.TFrame')
+outer_frame.grid(row=0, column=0, sticky='nsew')
 
 # Inner frame
 style.configure('Inner.Border.TFrame', background='#FFFFFF')
-inner_frame = ttk.Frame(frame, style='Inner.Border.TFrame')
+inner_frame = ttk.Frame(outer_frame, style='Inner.Border.TFrame')
 inner_frame.grid(row=0, column=0, sticky='nsew', padx=20, pady=20)
+
+# Create three column frames inside inner_frame
+column1 = ttk.Frame(inner_frame, style='Border.TFrame')
+column2 = ttk.Frame(inner_frame, style='Border.TFrame')
+column3 = ttk.Frame(inner_frame, style='Border.TFrame')
+
+# Position the columns
+column1.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
+column2.grid(row=0, column=1, sticky='nsew', padx=5, pady=5)
+column3.grid(row=0, column=2, sticky='nsew', padx=5, pady=5)
+
 
 # Configure grid weights for both frames
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
-frame.grid_rowconfigure(0, weight=1)
-frame.grid_columnconfigure(0, weight=1)
+outer_frame.grid_rowconfigure(0, weight=1)
+outer_frame.grid_columnconfigure(0, weight=1)
+
+inner_frame.grid_rowconfigure(0, weight=1)
+inner_frame.grid_columnconfigure(0, weight=1)
+inner_frame.grid_columnconfigure(1, weight=1)
+inner_frame.grid_columnconfigure(2, weight=1)
 
 # Closes the application window when the 'q' key is pressed
 root.bind('<q>', lambda e: close_window(root, e))
