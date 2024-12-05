@@ -4,7 +4,8 @@ import tkinter as tk
 
 # Modern color scheme
 COLORS = {
-    'bg': '#2E3440',  # Dark background
+    'bg': 'gray',  # Dark background
+    # 'bg': '#2E3440',  # Dark background
     'secondary': '#3B4252',  # Slightly lighter background
     'accent': '#88C0D0',  # Blue accent
     'text': '#ECEFF4',  # Light text
@@ -42,6 +43,9 @@ def setup_window(root):
     root.geometry(f'+{x}+{y}')
     root.title("Testing Test")
 
+    # Set the background color of the root window
+    root.configure(bg=COLORS['bg'])
+
 root = tk.Tk()
 setup_window(root)
 
@@ -56,50 +60,150 @@ style.configure(
 )
 
 # Main outer frame
-outer_frame = ttk.Frame(root, style='Border.TFrame')
-outer_frame.grid(row=0, column=0, sticky='nsew')
+main_frame = ttk.Frame(root, style='Border.TFrame')
+main_frame.grid(row=0, column=0, sticky='nsew', padx=20, pady=20)
 
-# Inner frame
-style.configure('Inner.Border.TFrame', background='#FFFFFF')
-inner_frame = ttk.Frame(outer_frame, style='Inner.Border.TFrame')
-inner_frame.grid(row=0, column=0, sticky='nsew', padx=20, pady=20)
+test_frame_0 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_0.grid(row=0, column=0, sticky='nsew')
+test_label_0 = tk.Label(
+    test_frame_0,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_0.pack(expand=True)
 
-# Create three column frames inside inner_frame
-column1 = ttk.Frame(inner_frame, style='Border.TFrame')
-column2 = ttk.Frame(inner_frame, style='Border.TFrame')
-column3 = ttk.Frame(inner_frame, style='Border.TFrame')
+test_frame_1 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_1.grid(row=1, column=0, sticky='nsew')
+test_label_1 = tk.Label(
+    test_frame_1,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_1.pack(expand=True)
 
-# Add labels to each column
-label1 = ttk.Label(column1, text="Column 1", anchor="center")
-label2 = ttk.Label(column2, text="Column 2", anchor="center")
-label3 = ttk.Label(column3, text="Column 3", anchor="center")
+test_frame_2 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_2.grid(row=2, column=0, sticky='nsew')
+test_label_2 = tk.Label(
+    test_frame_2,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_2.pack(expand=True)
 
-# Position the labels at the top of each column, centered
-label1.grid(row=0, column=0, pady=10)
-label2.grid(row=0, column=0, pady=10)
-label3.grid(row=0, column=0, pady=10)
+test_frame_3 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_3.grid(row=3, column=0, sticky='nsew')
+test_label_3 = tk.Label(
+    test_frame_3,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_3.pack(expand=True)
 
-# Configure column weights for the labels
-column1.grid_columnconfigure(0, weight=1)
-column2.grid_columnconfigure(0, weight=1)
-column3.grid_columnconfigure(0, weight=1)
+test_frame_4 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_4.grid(row=0, column=1, sticky='nsew')
+test_label_4 = tk.Label(
+    test_frame_4,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_4.pack(expand=True)
 
-# Position the columns
-column1.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
-column2.grid(row=0, column=1, sticky='nsew', padx=5, pady=5)
-column3.grid(row=0, column=2, sticky='nsew', padx=5, pady=5)
+test_frame_5 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_5.grid(row=1, column=1, sticky='nsew')
+test_label_5 = tk.Label(
+    test_frame_5,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_5.pack(expand=True)
 
+test_frame_6 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_6.grid(row=2, column=1, sticky='nsew')
+test_label_6 = tk.Label(
+    test_frame_6,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_6.pack(expand=True)
 
-# Configure grid weights for both frames
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
-outer_frame.grid_rowconfigure(0, weight=1)
-outer_frame.grid_columnconfigure(0, weight=1)
+test_frame_7 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_7.grid(row=3, column=1, sticky='nsew')
+test_label_7 = tk.Label(
+    test_frame_7,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_7.pack(expand=True)
 
-inner_frame.grid_rowconfigure(0, weight=1)
-inner_frame.grid_columnconfigure(0, weight=1)
-inner_frame.grid_columnconfigure(1, weight=1)
-inner_frame.grid_columnconfigure(2, weight=1)
+test_frame_8 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_8.grid(row=0, column=2, sticky='nsew')
+test_label_8 = tk.Label(
+    test_frame_8,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_8.pack(expand=True)
+
+test_frame_9 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_9.grid(row=1, column=2, sticky='nsew')
+test_label_9 = tk.Label(
+    test_frame_9,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_9.pack(expand=True)
+
+test_frame_10 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_10.grid(row=2, column=2, sticky='nsew')
+test_label_10 = tk.Label(
+    test_frame_10,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_10.pack(expand=True)
+
+test_frame_11 = ttk.Frame(main_frame, style='Border.TFrame')
+test_frame_11.grid(row=3, column=2, sticky='nsew')
+test_label_11 = tk.Label(
+    test_frame_11,
+    text="Hello",
+    bg=COLORS['bg'],
+    fg=COLORS['text'],
+    font=FONTS['header']
+)
+test_label_11.pack(expand=True)
+
+root.rowconfigure(0, weight=1)
+root.columnconfigure(0, weight=1)
+main_frame.rowconfigure(0, weight=1)
+main_frame.rowconfigure(1, weight=1)
+main_frame.rowconfigure(2, weight=1)
+main_frame.rowconfigure(3, weight=1)
+main_frame.columnconfigure(0, weight=1)
+main_frame.columnconfigure(1, weight=1)
+main_frame.columnconfigure(2, weight=1)
 
 # Closes the application window when the 'q' key is pressed
 root.bind('<q>', lambda e: close_window(root, e))
