@@ -160,6 +160,29 @@ def setup_pinyin_sentence_frame():
     )
     translated_pinyin_sentence.pack(expand=True)
 
+def setup_recently_opened_files_frame():
+    recently_opened_files_frame = ttk.Frame(main_frame, style='Border.TFrame')
+    recently_opened_files_frame.grid(row=0, column=1, rowspan=4, sticky='nsew')
+
+    recently_opened_files_label = tk.Label(
+        recently_opened_files_frame,
+        text="Recently Opened Files",
+        bg=COLORS['bg'],
+        fg=COLORS['text'],
+        font=FONTS['header']
+    )
+    recently_opened_files_label.pack(expand=True)
+
+    # TODO: This should be a listbox with the most recently opened files
+    recently_opened_files_listbox = tk.Label(
+        recently_opened_files_frame,
+        text="Recently opened files list",
+        bg=COLORS['bg'],
+        fg=COLORS['text'],
+        font=FONTS['header']
+    )
+    recently_opened_files_listbox.pack(expand=True)
+
 root = tk.Tk()
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
@@ -191,6 +214,7 @@ setup_browse_file_frame()
 setup_user_input_frame()
 setup_chinese_sentence_frame()
 setup_pinyin_sentence_frame()
+setup_recently_opened_files_frame()
 
 # TODO finish set up of recently_opened_files_frame
 # recently_opened_files_frame = ttk.Frame(main_frame, style='Border.TFrame')
